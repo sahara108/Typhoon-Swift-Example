@@ -16,7 +16,7 @@ public enum TemperatureUnits : Int {
     case Fahrenheit
 }
 
-
+@objc
 public class Temperature : NSObject, NSCoding {
     
     private var _temperatureInFahrenheit : NSDecimalNumber
@@ -31,7 +31,17 @@ public class Temperature : NSObject, NSCoding {
         NSUserDefaults.standardUserDefaults().setInteger(units.rawValue, forKey: "pf.default.units")
     }
     
-
+    override init() {
+        _temperatureInFahrenheit = NSDecimalNumber(string: "1000");
+        
+        _shortFormatter = NSNumberFormatter()
+        _shortFormatter.minimumFractionDigits = 0;
+        _shortFormatter.maximumFractionDigits = 0;
+        
+        _longFormatter = NSNumberFormatter()
+        _longFormatter.minimumFractionDigits = 0
+        _longFormatter.maximumFractionDigits = 1
+    }
   
     public init(temperatureInFahrenheit : NSDecimalNumber) {
         _temperatureInFahrenheit = temperatureInFahrenheit;
@@ -46,11 +56,11 @@ public class Temperature : NSObject, NSCoding {
         
     }
     
-    public convenience init(fahrenheitString : String) {
+    public dynamic convenience init(fahrenheitString : String) {
         self.init(temperatureInFahrenheit:NSDecimalNumber(string: fahrenheitString))
     }
     
-    public convenience init(celciusString : String) {
+    public dynamic convenience init(celciusString : String) {
         let fahrenheit = NSDecimalNumber(string: celciusString)
             .decimalNumberByMultiplyingBy(9)
             .decimalNumberByDividingBy(5)

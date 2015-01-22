@@ -16,11 +16,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var cityDao: CityDao?
-    var rootViewController: RootViewController?
+    var cityDao: CityDao? {
+        
+        didSet {
+            println("did set city dao")
+        }
+    }
+    var rootViewController: RootViewController? {
+        didSet {
+            println("did set root view controller ")
+        }
+    }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+        println("did finish launching ")
         ICLoader.setImageName("cloud_icon.png")
         ICLoader.setLabelFontName(UIFont.applicationFontOfSize(10).fontName)
         

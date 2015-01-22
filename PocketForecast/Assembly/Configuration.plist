@@ -5,7 +5,7 @@
 	<key>service.url</key>
 	<string>NSURL(http://api.worldweatheronline.com/free/v2/weather.ashx)</string>
 	<key>api.key</key>
-	<string>$$YOUR_API_KEY_HERE$$</string>
+	<string>a8f0760738b991f9a6d295a4230ff</string>
 	<key>days.to.retrieve</key>
 	<string>NSNumber(5)</string>
 </dict>

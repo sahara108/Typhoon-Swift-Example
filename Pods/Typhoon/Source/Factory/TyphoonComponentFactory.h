@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2014, Jasper Blues & Contributors
+//  Copyright 2014, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -12,7 +12,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "TyphoonComponentFactoryPostProcessor.h"
+#import "TyphoonDefinitionPostProcessor.h"
 #import "TyphoonComponentsPool.h"
 
 @class TyphoonDefinition;
@@ -75,6 +75,12 @@
 *
 */
 + (id)defaultFactory;
+
+
++ (void)setFactoryForResolvingFromXibs:(TyphoonComponentFactory *)factory;
+
+/** Factory used to resolve definition from TyphoonLoadedView. */
++ (TyphoonComponentFactory *)factoryForResolvingFromXibs;
 
 /**
 * Mutate the component definitions and
@@ -164,7 +170,7 @@
  Attach a TyphoonComponentFactoryPostProcessor to this component factory.
  @param postProcessor The post-processor to attach.
  */
-- (void)attachPostProcessor:(id <TyphoonComponentFactoryPostProcessor>)postProcessor;
+- (void)attachPostProcessor:(id <TyphoonDefinitionPostProcessor>)postProcessor;
 
 /**
  * Injects the properties and methods of an object

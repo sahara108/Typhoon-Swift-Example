@@ -14,7 +14,7 @@ import Foundation
 public class WeatherClientBasicImpl: NSObject, WeatherClient {
 
     var weatherReportDao: WeatherReportDao?
-    var serviceUrl: NSURL?
+    var serviceUrl: NSURL! = NSURL(string: "http://free.worldweatheronline.com")
     var daysToRetrieve: NSNumber?
 
     var apiKey: String? {

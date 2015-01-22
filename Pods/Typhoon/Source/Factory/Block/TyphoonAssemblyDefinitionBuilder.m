@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  TYPHOON FRAMEWORK
-//  Copyright 2013, Jasper Blues & Contributors
+//  Copyright 2013, Typhoon Framework Contributors
 //  All Rights Reserved.
 //
 //  NOTICE: The authors permit you to use, modify, and distribute this file
@@ -22,6 +22,8 @@
 #import "TyphoonSelector.h"
 #import "TyphoonInjections.h"
 #import "TyphoonUtils.h"
+
+#import <objc/runtime.h>
 
 static id InjectionForArgumentType(const char *argumentType, NSUInteger index);
 static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSignature *signature);
@@ -195,7 +197,7 @@ static id objc_msgSend_InjectionArguments(id target, SEL selector, NSMethodSigna
         return (__bridge id) result;
     }
     else {
-        return objc_msgSend(target, selector);
+        return ((id (*)(id, SEL))objc_msgSend)(target, selector);
     }
 }
 

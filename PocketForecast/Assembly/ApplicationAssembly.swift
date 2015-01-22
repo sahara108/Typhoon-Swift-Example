@@ -31,10 +31,28 @@ public class ApplicationAssembly: TyphoonAssembly {
     public dynamic func appDelegate() -> AnyObject {
         return TyphoonDefinition.withClass(AppDelegate.self) {
             (definition) in
-             
             definition.injectProperty("cityDao", with:self.coreComponents.cityDao())
             definition.injectProperty("rootViewController", with:self.rootViewController())
         }
+    }
+    
+    public dynamic func customObj() -> AnyObject {
+        return TyphoonDefinition.withClass(Temperature.self) {
+            (definition) in
+            definition.useInitializer("initWithCelciusString:") {
+                (initializer) in
+                initializer.injectParameterWith("1000")
+            }
+            
+            /* This code will work. But I need overwrite the init method of Temperature class.
+            definition.useInitializer("init") {
+            }
+            */
+        }
+    }
+    
+    public dynamic func customObj2() -> AnyObject {
+        return TyphoonDefinition.withClass(Temperature.self)
     }
 
     
@@ -69,7 +87,7 @@ public class ApplicationAssembly: TyphoonAssembly {
         
         return TyphoonDefinition.withClass(CitiesListViewController.self) {
             (definition) in
-            
+            definition.scope = TyphoonScope.LazySingleton
             definition.useInitializer("initWithCityDao:theme:") {
                 (initializer) in
                 

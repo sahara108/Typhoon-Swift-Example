@@ -25,6 +25,7 @@ public class RootViewController : UIViewController, PaperFoldViewDelegate {
     private var mainContentViewContainer : UIView!
     private var sideViewState : SideViewState!
     private var assembly : ApplicationAssembly!
+    var customObj: NSObject?
     
     private var paperFoldView : PaperFoldView {
         get {
@@ -45,7 +46,6 @@ public class RootViewController : UIViewController, PaperFoldViewDelegate {
     
     public init(mainContentViewController : UIViewController, assembly : ApplicationAssembly) {
         super.init(nibName : nil, bundle : nil)
-        
         self.assembly = assembly
         self.sideViewState = SideViewState.Hidden
         self.pushViewController(mainContentViewController, replaceRoot: true)
@@ -89,10 +89,19 @@ public class RootViewController : UIViewController, PaperFoldViewDelegate {
         }
     }
     
+    func address<T: AnyObject>(o: T) -> Int {
+        return unsafeBitCast(o, Int.self)
+    }
+    
     public func showCitiesListController() {
+        //Test it here.
+        self.customObj = self.assembly.customObj() as? NSObject
+        let temp3 = self.assembly.customObj() as NSObject
+        
         if (self.sideViewState != SideViewState.Showing) {
             self.sideViewState = SideViewState.Showing
-            self.citiesListController = UINavigationController(rootViewController: self.assembly.citiesListController() as UIViewController)
+            let cityVC : UIViewController = self.assembly.citiesListController()  as UIViewController
+            self.citiesListController = UINavigationController(rootViewController: cityVC)
             
             self.citiesListController!.view.frame = CGRectMake(0, 0, SIDE_CONTROLLER_WIDTH, self.mainContentViewContainer.frame.size.height)
             
